@@ -120,6 +120,6 @@ $(document).ready(function () {
     console.log("After removing hidden class:", $("#custom-infowindow").attr("class"));
   }
 
-  // Call the initMap function when the document is ready
-  initMap();
+  // No need to call initMap here
+  // initMap();
 });
