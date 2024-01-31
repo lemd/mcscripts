@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  let currentInfowindow = null; // Define currentInfowindow at the top level
+  const currentInfowindow = null; // Define currentInfowindow at the top level
 
   // Global Constants
   const icon1 = {
@@ -11,7 +11,7 @@ $(document).ready(function () {
     url: "https://uploads-ssl.webflow.com/5eb0f393bcf84463fde7eeb0/65b841bd6bf492a6b082d3b3_icon-map-shop.svg",
   };
 
-  function initMap() {
+  global.initMap = function () {
     // Add google-dependent features for icon1 and icon2 here to avoid 'google is not defined' error.
     icon1.scaledSize = new google.maps.Size(29, 36);
     icon2.scaledSize = new google.maps.Size(29, 36);
@@ -31,9 +31,6 @@ $(document).ready(function () {
       fullscreenControl: true,
       myLocationEnabled: true,
     });
-
-    // Keep track of the currently open info window
-    let currentInfowindow = null;
 
     // Function to create markers
     function createMarker(markerData, index) {
