@@ -1,40 +1,32 @@
 $(document).ready(function () {
-  var paragraphContent = $('.paragraph-overflow');
-  var bioContent = paragraphContent.children('.paragraph');
-  var overflowButton = paragraphContent.children('.button.is-outline');
-  var gradientOverlay = paragraphContent.children('.paragraph-overflow-gradient');
+  var paragraphOverflow = $('.paragraph-overflow');
+  var gradientElement = $('.paragraph-overflow-gradient');
+  var buttonOverflowRead = $('#overflow-read');
 
-  // Set initial max-height value
-  var maxHeight = '100px'; // Set your desired initial height
+  updateOverflowVisibility(); // Initial check
 
-  // Check if the bio content is too long
-  if (bioContent[0].scrollHeight > bioContent[0].clientHeight) {
-    // Show the "Continue Reading" button
-    overflowButton.show();
+  buttonOverflowRead.on('click', function () {
+    // Remove max-height on button click
+    paragraphOverflow.css('max-height', 'none');
+    updateOverflowVisibility(); // Update visibility after removing max-height
+    buttonOverflowRead.hide(); // Hide the button after clicking
+    console.log('Max-height removed. Full content is visible.');
+  });
 
-    // Hide the gradient overlay
-    gradientOverlay.hide();
+  function updateOverflowVisibility() {
+    var maxOverflowHeight = parseInt(paragraphOverflow.css('max-height').replace('px', ''));
+    var actualParagraphHeight = paragraphOverflow.find('.paragraph').height();
+    var containerHeight = paragraphOverflow.height();
 
-    // Set the initial max-height to 'auto'
-    bioContent.css('max-height', 'auto');
+    console.log('Container Height:', containerHeight);
+    console.log('Paragraph Height:', actualParagraphHeight);
 
-    // Toggle the content when the button is clicked
-    overflowButton.click(function () {
-      if (bioContent.css('max-height') === 'none') {
-        // If content is fully expanded, collapse it
-        bioContent.css('max-height', maxHeight);
-        overflowButton.text('Continue Reading');
-        gradientOverlay.hide();
-      } else {
-        // If content is collapsed, expand it
-        bioContent.css('max-height', 'none');
-        overflowButton.text('Show Less');
-        gradientOverlay.show();
-      }
-    });
-  } else {
-    // If the content does not exceed the container's height, hide the button and gradient
-    overflowButton.hide();
-    gradientOverlay.hide();
+    if (actualParagraphHeight > maxOverflowHeight) {
+      gradientElement.show(); // Show gradient if the content is taller
+      buttonOverflowRead.show(); // Show button if content is taller
+    } else {
+      gradientElement.hide(); // Hide gradient if the content fits within max-height
+      buttonOverflowRead.hide(); // Hide button if content fits within max-height
+    }
   }
 });
