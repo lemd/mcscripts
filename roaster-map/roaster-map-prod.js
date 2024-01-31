@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+  let currentInfowindow = null; // Define currentInfowindow at the top level
+
   // Global Constants
   const icon1 = {
     url: "https://uploads-ssl.webflow.com/5eb0f393bcf84463fde7eeb0/65b841bda385a8f6719d6966_icon-map-roaster.svg",
